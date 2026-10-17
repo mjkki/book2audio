@@ -17,7 +17,36 @@
 - **时长预判**：`--dry-run` 转换前即可预估全书音频时长；完成后输出「实际 vs 预估」对照，比值过低自动告警
 - **规整输出**：`01-第一章 标题.mp3` 序号前置命名，同章三件套相邻排列，附带 `manifest.json` 全书汇总
 
-## 📦 安装
+## 🤖 强烈推荐：配合 WorkBuddy，一句话完成转换
+
+**这个项目最省心的用法，是让 AI 替你跑。**
+
+本仓库自带一份专为 AI Agent 编写的操作手册 [`skill/SKILL.md`](skill/SKILL.md)，装入 [WorkBuddy](https://www.workbuddy.cn/) 后，你不必记任何命令、不必管章节正则和续跑参数，用自然语言下达需求即可。
+
+### 一次安装，永久生效
+
+```bash
+mkdir -p ~/.workbuddy/skills/book2audio
+cp skill/SKILL.md ~/.workbuddy/skills/book2audio/SKILL.md
+```
+
+### 然后只需要说话
+
+> 帮我把 `~/books/三体.epub` 转成音频，输出到 `~/books/output`，用男声、语速稍快一点
+
+WorkBuddy 会按 skill 的引导自动跑完整套流程：
+
+1. **确认路径** — 向你确认输入图书与输出目录
+2. **预览章节** — 自动跑 `--dry-run`，先把识别出的章节标题和全书预估时长给你过目
+3. **执行转换** — 自动处理网络重试、断点续跑、并发限流，长任务自动后台托管不必盯着
+4. **校验汇报** — 核对 `mp3 / lrc / json` 三件套与 `manifest.json` 汇总，告诉你需要关注的成功 / 跳过 / 失败章节
+
+**为什么推荐这条路**：上面那些容错机制的**正确用法**——什么时候该先 `--dry-run`、中断后为什么必须 `--resume`、为什么多本书要串行、超过 60 字的标题会被丢弃、"跑了十分钟没出 mp3"到底是不是卡死——都已写在 skill 里，Agent 会替你判断并按顺序执行。你只需要关心三件事：**书在哪、音频放哪、用什么音色**。
+
+> 习惯命令行或要做批量自动化？继续看下面的 **安装（命令行）** 与 **快速开始** 章节。
+> SKILL.md 遵循通用的 Agent Skill 约定（YAML frontmatter + Markdown 正文），其他支持同类约定的 agent 平台同样可用。
+
+## 📦 安装（命令行）
 
 要求：**Python 3.10+** 且系统已安装 **ffmpeg**（音频拼接必需）。
 
@@ -86,24 +115,6 @@ output/
 | `--gap` | 片段间停顿秒数（默认 0.25） |
 
 配置文件示例见 [examples/config.example.yaml](examples/config.example.yaml)。
-
-## 🤖 配合 WorkBuddy 使用（推荐）
-
-本仓库自带一份为 AI Agent 编写的操作手册 [`skill/SKILL.md`](skill/SKILL.md)。装入 [WorkBuddy](https://www.workbuddy.cn/) 后，无需记任何命令，用自然语言即可完成转换：
-
-```bash
-# 安装 skill（复制到 WorkBuddy 用户级技能目录）
-mkdir -p ~/.workbuddy/skills/book2audio
-cp skill/SKILL.md ~/.workbuddy/skills/book2audio/SKILL.md
-```
-
-之后在 WorkBuddy 对话中直接说：
-
-> 帮我把 `~/books/三体.epub` 转成音频，输出到 `~/books/output`
-
-Agent 会按 skill 引导自动完成：**询问确认路径 → `--dry-run` 预览章节 → 执行转换 → 校验 mp3/lrc/json 三件套与 manifest 汇总**，全程无需手动敲命令。
-
-> 该 SKILL.md 遵循通用的 Agent Skill 约定（YAML frontmatter + Markdown 正文），理论上也可用于其他支持同类约定的 agent 平台。
 
 ## 🎵 播放器推荐
 
