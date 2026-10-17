@@ -1,0 +1,39 @@
+# Python 编译产物
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 打包 / 安装产物
+*.egg-info/
+.eggs/
+build/
+dist/
+wheels/
+
+# 测试 / 缓存
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# 工具输出（转换产物、试听样例）
+output/
+output-test/
+*.mp3
+*.lrc
+*.concat.txt
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp

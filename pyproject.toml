@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "book2audio"
+version = "0.1.0"
+description = "将图书按章节转换为带 lrc 歌词的 mp3 音频（基于 edge-tts）"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "mjkki" }]
+dependencies = [
+    "edge-tts>=6.1.0",
+    "beautifulsoup4>=4.12",
+    "lxml>=5.0",
+    "mutagen>=1.47",
+    "pydub>=0.25",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+mobi = ["mobi>=0.3"]
+
+[project.urls]
+Homepage = "https://github.com/mjkki/book2audio"
+Repository = "https://github.com/mjkki/book2audio"
+Issues = "https://github.com/mjkki/book2audio/issues"
+
+[project.scripts]
+book2audio = "book2audio.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

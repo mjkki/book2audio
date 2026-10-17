@@ -1,0 +1,25 @@
+# book2audio 配置文件示例
+# 使用方式：book2audio 书.txt --config config.yaml
+# 命令行参数优先级高于此处配置
+
+input: examples/books/中文规整小说.txt
+output_dir: ./output
+voice: zh-CN-XiaoxiaoNeural
+rate: +0%
+pitch: +0Hz
+volume: +0%
+audio_format: mp3
+bitrate: 64k
+chapter_pattern:
+  - ^第[0-9零一二三四五六七八九十百千万两]+[章节回卷部集篇]
+  - ^[卷部][一二三四五六七八九十零百千]+
+  - ^Chapter\s+[0-9IVXLC]+\b
+segment:
+  max_chars: 500
+  min_chars: 30
+retry:
+  max_attempts: 3
+  backoff_sec: 2.0
+segment_gap_sec: 0.25
+resume: false
+overwrite: false
